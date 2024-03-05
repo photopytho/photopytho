@@ -9,7 +9,6 @@ app = Flask(__name__)
 
 app.config['UPLOAD_PATH'] = 'static/uploads'
 
-# Fungsi untuk merender halaman Home
 @app.route("/")
 def uploader():
     path = app.config['UPLOAD_PATH']
@@ -18,22 +17,6 @@ def uploader():
     uploads.reverse()
     return render_template("index.html", uploads=uploads)
 
-# Fungsi untuk merender halaman About
-@app.route("/about")
-def about():
-    return render_template("about.html")
-
-# Fungsi untuk merender halaman Gallery
-@app.route("/gallery")
-def gallery():
-    return render_template("gallery.html")
-
-# Fungsi untuk merender halaman Support
-@app.route("/support")
-def support():
-    return render_template("support.html")
-
-# Fungsi untuk merender halaman Upload
 @app.route("/upload", methods=['POST'])
 def upload_file():
     if 'file' in request.files:
@@ -44,13 +27,11 @@ def upload_file():
 
         # Perform YOLO detection
         yolo = YOLO('best.pt')
+        detections = yolo.predict(image, imgsz=640, conf=0.6, save=True, project="static/", name="uploads", exist_ok=True)
+        print(detections)
 
         # Load image using PIL
         image = Image.open(filepath)
-
-        # Perform YOLO detection
-        detections = yolo.predict(image, imgsz=640, conf=0.6, save=True, project="static/", name="uploads", exist_ok=True)
-        print(detections)
 
         return redirect("/")
 
