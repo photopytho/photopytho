@@ -1,4 +1,4 @@
-# Fitoplankton Identification with YOLO and Flask
+# Phytoplankton Identification with YOLO and Flask
 
 This repository contains a web application built with Flask for identifying fitoplankton using the YOLO (You Only Look Once) deep learning model. The application allows users to upload images, performs YOLO detection, and displays the results.
 
